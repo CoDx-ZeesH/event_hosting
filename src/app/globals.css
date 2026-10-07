@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-cream: #F5EFDF;
+  --color-black: #0A0809;
+  --color-yellow: #FAD30C;
+  --color-orange: #ED8C25;
+  --color-magenta: #E624E3;
+  --color-blue: #295DDA;
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-body: var(--font-public-sans), sans-serif;
+  --shadow-brutal: 6px 8px 0px 0px #0A0809;
+  --shadow-brutal-sm: 4px 6px 0px 0px #0A0809;
+  --shadow-brutal-hover: 2px 2px 0px 0px #0A0809;
+  --shadow-brutal-active: 0px 0px 0px 0px #0A0809;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-black);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .brutal-border {
+    border: 3px solid var(--color-black);
+  }
+  .brutal-shadow {
+    box-shadow: var(--shadow-brutal);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .brutal-shadow-hover:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+  .brutal-shadow-hover:active {
+    transform: translate(6px, 8px);
+    box-shadow: var(--shadow-brutal-active);
+  }
+  .brutal-btn {
+    border: 3px solid var(--color-black);
+    box-shadow: var(--shadow-brutal);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: var(--color-yellow);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .brutal-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+  .brutal-btn:active {
+    transform: translate(6px, 8px);
+    box-shadow: var(--shadow-brutal-active);
+  }
+  .brutal-card {
+    border: 3px solid var(--color-black);
+    box-shadow: var(--shadow-brutal);
+    background-color: #ffffff;
+    padding: 1.5rem;
+    position: relative;
+  }
+  .brutal-badge {
+    border: 2px solid var(--color-black);
+    background-color: var(--color-orange);
+    color: var(--color-black);
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background-color: var(--color-cream);
+  border-left: 3px solid var(--color-black);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-magenta);
+  border-left: 3px solid var(--color-black);
+  border-top: 3px solid var(--color-black);
+  border-bottom: 3px solid var(--color-black);
+}
+
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-orange);
+}
+.sticker-shadow {
+  filter: drop-shadow(3px 0px 0px #0A0809) drop-shadow(-3px 0px 0px #0A0809) drop-shadow(0px 3px 0px #0A0809) drop-shadow(0px -3px 0px #0A0809) drop-shadow(8px 10px 0px rgba(10,8,9,0.8));
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
