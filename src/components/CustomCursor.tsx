@@ -1,65 +1,79 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const cursorRef = useRef<HTMLDivElement>(null);
   const [isPointer, setIsPointer] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(true); // Default true to prevent flicker on mobile
+  const isPointerRef = useRef(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(true);
 
   useEffect(() => {
     // Check if device is touch capable
-    const checkTouch = () => {
-      setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    setIsTouchDevice(isTouch);
+    if (isTouch) return;
+
+    let rafId: number;
+    let targetX = -100;
+    let targetY = -100;
+
+    const onMouseMove = (e: MouseEvent) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+
+      if (!rafId) {
+        rafId = requestAnimationFrame(updateCursor);
+      }
     };
-    checkTouch();
 
-    if (isTouchDevice) return;
-
-    const mouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: e.clientX,
-        y: e.clientY
-      });
+    const updateCursor = () => {
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${targetX - 16}px, ${targetY - 16}px, 0)`;
+      }
+      rafId = 0;
     };
 
-    const mouseOver = (e: MouseEvent) => {
+    const onMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (
+      if (!target) return;
+
+      const pointer = !!(
         target.tagName === 'A' ||
         target.tagName === 'BUTTON' ||
         target.closest('a') ||
         target.closest('button') ||
-        target.classList.contains('cursor-pointer')
-      ) {
-        setIsPointer(true);
-      } else {
-        setIsPointer(false);
+        target.classList.contains('cursor-pointer') ||
+        target.getAttribute('role') === 'button'
+      );
+
+      if (pointer !== isPointerRef.current) {
+        isPointerRef.current = pointer;
+        setIsPointer(pointer);
       }
     };
 
-    window.addEventListener("mousemove", mouseMove);
-    window.addEventListener("mouseover", mouseOver);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mouseover", onMouseOver, { passive: true });
 
     return () => {
-      window.removeEventListener("mousemove", mouseMove);
-      window.removeEventListener("mouseover", mouseOver);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseover", onMouseOver);
+      if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [isTouchDevice]);
+  }, []);
 
   if (isTouchDevice) return null;
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[100] mix-blend-difference flex items-center justify-center bg-white"
-      animate={{
-        x: mousePosition.x - 16,
-        y: mousePosition.y - 16,
-        scale: isPointer ? 1.5 : 1,
+    <div
+      ref={cursorRef}
+      className={`fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[100] transition-transform duration-100 ease-out will-change-transform flex items-center justify-center ${
+        isPointer ? "scale-150 bg-yellow border-2 border-black" : "scale-100 bg-black/80 border border-white"
+      }`}
+      style={{
+        transform: "translate3d(-100px, -100px, 0)",
       }}
-      transition={{ type: "tween", ease: "backOut", duration: 0.15 }}
-    >
-    </motion.div>
+    />
   );
 }

@@ -26,7 +26,7 @@ export default function Chapter04_Hosting() {
             </div>
             <h3 className="text-4xl font-black uppercase mb-6 text-magenta">Backstage</h3>
             <div className="relative w-full aspect-[4/3] bg-black brutal-border">
-              <Image src="/assets/event-01.jpg" alt="Backstage" fill className="object-cover" />
+              <Image src="/assets/event-01-opt.jpg" alt="Backstage" fill className="object-cover" />
             </div>
             <p className="mt-4 font-bold uppercase text-sm">Pre-show alignment and energy building.</p>
           </div>
@@ -65,7 +65,7 @@ export default function Chapter04_Hosting() {
             </div>
             <h3 className="text-4xl font-black uppercase mb-6">The Crowd</h3>
             <div className="relative w-full aspect-[4/3] bg-black brutal-border">
-              <Image src="/assets/event-03.jpg" alt="Crowd" fill className="object-cover" />
+              <Image src="/assets/event-03-opt.jpg" alt="Crowd" fill className="object-cover" />
             </div>
             <p className="mt-4 font-bold uppercase text-sm">Interactive, engaged, and unforgettable.</p>
           </div>

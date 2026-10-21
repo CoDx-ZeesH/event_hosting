@@ -61,7 +61,7 @@ export default function Chapter03_YapArchive() {
 
           {/* Reel 3 (Small Right) */}
           <div className="relative w-full max-w-[280px] aspect-[9/16] bg-black brutal-border shadow-[8px_8px_0_#ED8C25] rotate-[5deg] z-10 group cursor-pointer hover:rotate-[3deg] transition-transform">
-            <Image src="/assets/reel-03.jpg" alt="Reel 3" fill className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+            <Image src="/assets/reel-03-opt.jpg" alt="Reel 3" fill className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
             <div className="absolute top-4 left-4 bg-yellow text-black text-xs font-bold px-2 py-1 uppercase brutal-border">
               YAP FILE #021
             </div>

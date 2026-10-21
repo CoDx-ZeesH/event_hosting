@@ -20,7 +20,7 @@ export default function Chapter05_WhyThisGuy() {
           <div className="relative w-[300px] md:w-[400px] h-[400px] md:h-[500px] bg-white p-4 pb-16 brutal-border shadow-[12px_12px_0_#0A0809] rotate-[2deg] z-10">
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 h-8 bg-white/40 backdrop-blur-sm border-2 border-black/10 rotate-[-4deg] z-20"></div>
             <div className="relative w-full h-full bg-black brutal-border">
-              <Image src="/assets/IMG_1835.JPG" alt="The Human Behind The Mic" fill className="object-cover" />
+              <Image src="/assets/IMG_1835-opt.jpg" alt="The Human Behind The Mic" fill className="object-cover" />
             </div>
             <div className="absolute bottom-4 left-0 w-full text-center font-display font-bold text-xl uppercase">
               The Human Behind The Mic
